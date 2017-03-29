@@ -1,18 +1,12 @@
 package io.github.devpump.pcpsstaffportal;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,9 +29,12 @@ public class Login extends Activity {
             job.put("email", et_username.getText());
             job.put("password", et_password.getText());
             
-            new Utility(Login.this).jsonRequest(job, new VolleyCallback() {
+            new Utility(Login.this).jsonRequest("AuthorizationService", "ValidateUser", job, new VolleyCallback() {//
                 public void onSuccess(JSONObject job) {
                     Log.v("OnSuccess", job.toString());
+                    Intent i = new Intent(Login.this, Home.class);
+                    i.putExtra("LoginData", job.toString());
+                    startActivity(i);
                 }
             });
         } catch (JSONException e) {

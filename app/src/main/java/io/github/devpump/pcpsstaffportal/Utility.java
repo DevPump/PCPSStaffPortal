@@ -24,9 +24,10 @@ public class Utility {
         rq = Volley.newRequestQueue(context.getApplicationContext());
     }
 
-    public void jsonRequest(JSONObject jsonPostData, final VolleyCallback callback) throws JSONException { //String barCode, String itemName, double itemQuantity){
+    public void jsonRequest(String serviceName, String endPoint, JSONObject jsonPostData, final VolleyCallback callback) throws JSONException {
         //Create Object request with via POST method with JSON Object.
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, "https://staff.mypolkschools.net/Services/AuthorizationService.svc/json/ValidateUser",jsonPostData,
+        String url = "https://staff.mypolkschools.net/Services/" + serviceName + ".svc/json/" + endPoint;
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url,jsonPostData,
                 new Response.Listener<JSONObject>() {
 
                     @Override
