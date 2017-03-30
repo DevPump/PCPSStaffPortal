@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,18 +24,22 @@ public class Login extends Activity {
         EditText et_username = (EditText) findViewById(R.id.et_username);
         EditText et_password = (EditText) findViewById(R.id.et_password);
 
-        JSONObject job = new JSONObject();
+        JSONObject jobAuthData = new JSONObject();
         try {
             //Create JSON Object for submitting.
-            job.put("email", et_username.getText());
-            job.put("password", et_password.getText());
+            jobAuthData.put("email", et_username.getText());
+            jobAuthData.put("password", et_password.getText());
             
-            new Utility(Login.this).jsonRequest("AuthorizationService", "ValidateUser", job, new VolleyCallback() {//
+            new Utility(Login.this).jsonRequest("AuthorizationService", "ValidateUser", jobAuthData, new VolleyCallback() {//
                 public void onSuccess(JSONObject job) {
                     Log.v("OnSuccess", job.toString());
                     Intent i = new Intent(Login.this, Home.class);
                     i.putExtra("LoginData", job.toString());
                     startActivity(i);
+                }
+                public void onFail(String response) {
+                 Toast toasty = Toast.makeText(Login.this, "Failed to login",Toast.LENGTH_LONG);
+                    toasty.show();
                 }
             });
         } catch (JSONException e) {

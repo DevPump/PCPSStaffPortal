@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    JSONObject jobAuthenticationData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +50,8 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         try {
             Intent i = getIntent();
-            JSONObject job = new JSONObject(i.getStringExtra("LoginData"));
-                Log.v("Job", job.toString());
+            jobAuthenticationData = new JSONObject(i.getStringExtra("LoginData"));
+                Log.v("Auth Success", jobAuthenticationData.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -93,11 +95,31 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_contactInfo) {
+            final TextView tv_address = (TextView)findViewById(R.id.tv_address);
+            JSONObject job = new JSONObject();
+            try {
+                job.put("AuthToken",jobAuthenticationData.getString("AuthToken").toString());
+                job.put("LockForEdit", "false");
+            new Utility(Home.this).jsonRequest("staffService", "GetAddress", job, new VolleyCallback() {
+                @Override
+                public void onSuccess(JSONObject job) throws JSONException {
+                    Log.v("CI Succ", job.toString());
+                tv_address.setText(job.getString("CurrentAddress").toString());
+                }
 
-        } else if (id == R.id.nav_slideshow) {
+                @Override
+                public void onFail(String response) {
+                    Log.v("CI FAIL", response);
+                }
+            });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else if (id == R.id.nav_leaveTime) {
+
+        }
+        /*else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 
@@ -105,7 +127,7 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

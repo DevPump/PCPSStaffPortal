@@ -33,12 +33,17 @@ public class Utility {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i("JSON Response", response.toString());
-                        callback.onSuccess(response);
+                        try {
+                            callback.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.getMessage());
+                callback.onFail("Unsuccessful response");
             }
         });
 
@@ -48,5 +53,6 @@ public class Utility {
 }
 
 interface VolleyCallback{
-    void onSuccess(JSONObject job);
+    void onSuccess(JSONObject job) throws JSONException;
+    void onFail(String response);
 }
