@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -96,28 +98,38 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_contactInfo) {
-            final TextView tv_address = (TextView)findViewById(R.id.tv_address);
-            JSONObject job = new JSONObject();
+//            final TextView tv_address = (TextView)findViewById(R.id.tv_address);
+//            JSONObject job = new JSONObject();
+//            try {
+//                job.put("AuthToken",jobAuthenticationData.getString("AuthToken").toString());
+//                job.put("LockForEdit", "false");
+//            new Utility(Home.this).jsonRequest("staffService", "GetAddress", job, new VolleyCallback() {
+//                @Override
+//                public void onSuccess(JSONObject job) throws JSONException {
+//                    Log.v("CI Succ", job.toString());
+//                tv_address.setText(job.getString("CurrentAddress").toString());
+//                }
+//
+//                @Override
+//                public void onFail(String response) {
+//                    Log.v("CI FAIL", response);
+//                }
+//            });
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+        } else if (id == R.id.nav_leaveTime) {
+            Fragment fragment = null;
+            Class fragmentClass;
+            fragmentClass = LeaveTime.class;
             try {
-                job.put("AuthToken",jobAuthenticationData.getString("AuthToken").toString());
-                job.put("LockForEdit", "false");
-            new Utility(Home.this).jsonRequest("staffService", "GetAddress", job, new VolleyCallback() {
-                @Override
-                public void onSuccess(JSONObject job) throws JSONException {
-                    Log.v("CI Succ", job.toString());
-                tv_address.setText(job.getString("CurrentAddress").toString());
-                }
-
-                @Override
-                public void onFail(String response) {
-                    Log.v("CI FAIL", response);
-                }
-            });
-            } catch (JSONException e) {
+                fragment = (Fragment) fragmentClass.newInstance();
+                // Insert the fragment by replacing any existing fragment
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (id == R.id.nav_leaveTime) {
-
         }
         /*else if (id == R.id.nav_slideshow) {
 
