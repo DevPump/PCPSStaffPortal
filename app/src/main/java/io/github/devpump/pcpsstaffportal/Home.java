@@ -26,6 +26,7 @@ public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     JSONObject jobAuthenticationData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +34,14 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -53,11 +54,12 @@ public class Home extends AppCompatActivity
         try {
             Intent i = getIntent();
             jobAuthenticationData = new JSONObject(i.getStringExtra("LoginData"));
-                Log.v("Auth Success", jobAuthenticationData.toString());
+            Log.v("Auth Success", jobAuthenticationData.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -95,9 +97,34 @@ public class Home extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        Fragment fragment = null;
+        Class fragmentClass = null;
+        switch (item.getItemId()) {
+            case R.id.nav_contactInfo:
+                break;
+            case R.id.nav_leaveTime:
+                fragmentClass = LeaveTime.class;
+                break;
+        }
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Bundle bndl = new Bundle();
+            bndl.putString("AuthToken", jobAuthenticationData.getString("AuthToken"));
+            fragment.setArguments(bndl);
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        } catch (Exception e) {
+            Log.e("Fragment ERR", e.getMessage());
+        }
 
-        if (id == R.id.nav_contactInfo) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+}
+
+
 //            final TextView tv_address = (TextView)findViewById(R.id.tv_address);
 //            JSONObject job = new JSONObject();
 //            try {
@@ -118,31 +145,3 @@ public class Home extends AppCompatActivity
 //            } catch (JSONException e) {
 //                e.printStackTrace();
 //            }
-        } else if (id == R.id.nav_leaveTime) {
-            Fragment fragment = null;
-            Class fragmentClass;
-            fragmentClass = LeaveTime.class;
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-                // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        /*else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-}

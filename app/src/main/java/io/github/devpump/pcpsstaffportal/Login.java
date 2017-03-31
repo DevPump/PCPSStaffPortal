@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,6 +38,12 @@ public class Login extends Activity {
                     i.putExtra("LoginData", job.toString());
                     startActivity(i);
                 }
+
+                @Override
+                public void onSuccessArray(JSONArray job) throws JSONException {
+
+                }
+
                 public void onFail(String response) {
                  Toast toasty = Toast.makeText(Login.this, "Failed to login",Toast.LENGTH_LONG);
                     toasty.show();

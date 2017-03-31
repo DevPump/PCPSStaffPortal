@@ -3,9 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button2"
+    <ListView
+        android:id="@+id/list_leaveHead"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_height="188dp" />
+
+    <ListView
+        android:id="@+id/list_absences"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

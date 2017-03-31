@@ -7,9 +7,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,9 +52,34 @@ public class Utility {
         // Adding request to request queue
         rq.add(req);
     }
+
+    public void jsonArrayRequest(String serviceName, String endPoint, JSONObject jsonPostData, final VolleyCallback callback) throws JSONException {
+        //Create Object request with via POST method with JSON Object.
+        String url = "https://staff.mypolkschools.net/Services/" + serviceName + ".svc/json/" + endPoint;
+        CustomRequest jsonObjReq = new CustomRequest(Request.Method.POST, url, jsonPostData,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            callback.onSuccessArray(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        // Adding request to request queue
+       rq.add(jsonObjReq);
+    }
 }
 
 interface VolleyCallback{
     void onSuccess(JSONObject job) throws JSONException;
+    void onSuccessArray(JSONArray job) throws JSONException;
     void onFail(String response);
 }
