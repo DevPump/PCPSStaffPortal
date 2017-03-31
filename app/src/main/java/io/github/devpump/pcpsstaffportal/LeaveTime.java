@@ -106,11 +106,6 @@ public class LeaveTime extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
-
     //https://github.com/codepath/android_guides/wiki/Creating-and-Using-Fragments
 
 }
