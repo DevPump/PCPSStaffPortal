@@ -3,13 +3,31 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_availableLeaveTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Available Leave Time"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
     <ListView
         android:id="@+id/list_leaveHead"
+        android:layout_width="wrap_content"
+        android:layout_height="188dp">
+    </ListView>
+
+    <TextView
+        android:id="@+id/tv_absences"
         android:layout_width="match_parent"
-        android:layout_height="188dp" />
+        android:layout_height="wrap_content"
+        android:text="Absences"
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
     <ListView
         android:id="@+id/list_absences"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_weight="2">
+
+    <TextView
+        android:id="@+id/tv_availableLeaveTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Available Leave Time"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:weightSum="1"
+        android:layout_above="@+id/list_absences"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/list_leaveHead" />
+
+    <TextView
+        android:id="@+id/tv_absences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Absences"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:layout_toEndOf="@+id/tv_availableLeaveTime" />
+
+    <ListView
+        android:id="@+id/list_leaveHead"
+        android:layout_width="296dp"
+        android:layout_height="254dp"
+        android:layout_below="@+id/tv_availableLeaveTime"
+        android:layout_alignParentBottom="true"></ListView>
+
+
+    <ListView
+        android:id="@+id/list_absences"
+        android:layout_width="match_parent"
+        android:layout_height="277dp"
+        android:layout_toEndOf="@+id/list_leaveHead"
+        android:layout_below="@+id/tv_absences"
+        android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
