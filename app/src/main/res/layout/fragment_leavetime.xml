@@ -14,7 +14,7 @@
     <ListView
         android:id="@+id/list_leaveHead"
         android:layout_width="wrap_content"
-        android:layout_height="188dp">
+        android:layout_height="175dp">
     </ListView>
 
     <TextView
