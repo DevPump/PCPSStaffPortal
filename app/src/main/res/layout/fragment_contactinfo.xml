@@ -4,13 +4,9 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-
-    <EditText
-        android:id="@+id/et_contactInfoTest"
+    <ListView
+        android:id="@+id/list_contactInfo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.33"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:layout_height="match_parent" />
+
 </LinearLayout>

@@ -7,13 +7,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,7 +27,7 @@ import java.util.List;
 
 public class ContactInfo extends Fragment {
 
-    EditText et_contactInfo;
+    ListView list_contactInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -30,8 +35,7 @@ public class ContactInfo extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_contactinfo, parent, false);
 
-        et_contactInfo = (EditText) rootView.findViewById(R.id.et_contactInfoTest);
-
+        list_contactInfo = (ListView) rootView.findViewById(R.id.list_contactInfo);
         Bundle bndl = getArguments();
 
         try {
@@ -41,7 +45,17 @@ public class ContactInfo extends Fragment {
             new Utility(getActivity()).jsonRequest("staffService", "GetAddress", job, new VolleyCallbackJsonObject() {
                 @Override
                 public void onSuccess(JSONObject job) throws JSONException {
-                    et_contactInfo.setText(job.toString());
+                    job = job.getJSONObject("CurrentAddress");
+                    List<String> contactInfoArray = new ArrayList<String>();
+                    ArrayAdapter<String> contactInfoArrayAdapter = new ArrayAdapter<String>(
+                            getActivity(),
+                            android.R.layout.simple_list_item_1, contactInfoArray);
+                    Iterator<String> iter = job.keys();
+                    while(iter.hasNext()){
+                        String key = iter.next();
+                            contactInfoArray.add(key + ": " + job.get(key).toString());
+                    }
+                    list_contactInfo.setAdapter(contactInfoArrayAdapter);
                     Log.v("SUCCESS", job.toString());
                 }
 
