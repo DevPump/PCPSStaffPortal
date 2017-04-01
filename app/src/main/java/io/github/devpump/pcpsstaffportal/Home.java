@@ -2,12 +2,9 @@ package io.github.devpump.pcpsstaffportal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,8 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -101,6 +96,7 @@ public class Home extends AppCompatActivity
         Class fragmentClass = null;
         switch (item.getItemId()) {
             case R.id.nav_contactInfo:
+                fragmentClass = ContactInfo.class;
                 break;
             case R.id.nav_leaveTime:
                 fragmentClass = LeaveTime.class;
@@ -123,25 +119,3 @@ public class Home extends AppCompatActivity
         return true;
     }
 }
-
-
-//            final TextView tv_address = (TextView)findViewById(R.id.tv_address);
-//            JSONObject job = new JSONObject();
-//            try {
-//                job.put("AuthToken",jobAuthenticationData.getString("AuthToken").toString());
-//                job.put("LockForEdit", "false");
-//            new Utility(Home.this).jsonRequest("staffService", "GetAddress", job, new VolleyCallback() {
-//                @Override
-//                public void onSuccess(JSONObject job) throws JSONException {
-//                    Log.v("CI Succ", job.toString());
-//                tv_address.setText(job.getString("CurrentAddress").toString());
-//                }
-//
-//                @Override
-//                public void onFail(String response) {
-//                    Log.v("CI FAIL", response);
-//                }
-//            });
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }

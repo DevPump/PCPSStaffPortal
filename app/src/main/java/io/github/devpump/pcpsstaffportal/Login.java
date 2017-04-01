@@ -31,17 +31,12 @@ public class Login extends Activity {
             jobAuthData.put("email", et_username.getText());
             jobAuthData.put("password", et_password.getText());
             
-            new Utility(Login.this).jsonRequest("AuthorizationService", "ValidateUser", jobAuthData, new VolleyCallback() {//
+            new Utility(Login.this).jsonRequest("AuthorizationService", "ValidateUser", jobAuthData, new VolleyCallbackJsonObject() {//
                 public void onSuccess(JSONObject job) {
                     Log.v("OnSuccess", job.toString());
                     Intent i = new Intent(Login.this, Home.class);
                     i.putExtra("LoginData", job.toString());
                     startActivity(i);
-                }
-
-                @Override
-                public void onSuccessArray(JSONArray job) throws JSONException {
-
                 }
 
                 public void onFail(String response) {

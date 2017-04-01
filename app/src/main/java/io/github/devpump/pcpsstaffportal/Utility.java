@@ -26,7 +26,7 @@ public class Utility {
         rq = Volley.newRequestQueue(context.getApplicationContext());
     }
 
-    public void jsonRequest(String serviceName, String endPoint, JSONObject jsonPostData, final VolleyCallback callback) throws JSONException {
+    public void jsonRequest(String serviceName, String endPoint, JSONObject jsonPostData, final VolleyCallbackJsonObject callback) throws JSONException {
         //Create Object request with via POST method with JSON Object.
         String url = "https://staff.mypolkschools.net/Services/" + serviceName + ".svc/json/" + endPoint;
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url,jsonPostData,
@@ -53,7 +53,7 @@ public class Utility {
         rq.add(req);
     }
 
-    public void jsonArrayRequest(String serviceName, String endPoint, JSONObject jsonPostData, final VolleyCallback callback) throws JSONException {
+    public void jsonArrayRequest(String serviceName, String endPoint, JSONObject jsonPostData, final VolleyCallbackJsonArray callback) throws JSONException {
         //Create Object request with via POST method with JSON Object.
         String url = "https://staff.mypolkschools.net/Services/" + serviceName + ".svc/json/" + endPoint;
         CustomRequest jsonObjReq = new CustomRequest(Request.Method.POST, url, jsonPostData,
@@ -78,8 +78,11 @@ public class Utility {
     }
 }
 
-interface VolleyCallback{
+interface VolleyCallbackJsonObject{
     void onSuccess(JSONObject job) throws JSONException;
-    void onSuccessArray(JSONArray job) throws JSONException;
+    void onFail(String response);
+}
+interface VolleyCallbackJsonArray {
+    void onSuccessArray(JSONArray jobarr) throws JSONException;
     void onFail(String response);
 }

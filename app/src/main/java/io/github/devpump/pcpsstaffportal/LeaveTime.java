@@ -46,11 +46,7 @@ public class LeaveTime extends Fragment {
                 try {
                     job.put("AuthToken",bndl.getString("AuthToken"));
                     //Get Leave time
-                    new Utility(getActivity()).jsonArrayRequest("staffService", "getESSLeaveList", job, new VolleyCallback() {
-                        @Override
-                        public void onSuccess(JSONObject job) throws JSONException {
-                            Log.v("SUCCESS",job.toString());
-                        }
+                    new Utility(getActivity()).jsonArrayRequest("staffService", "getESSLeaveList", job, new VolleyCallbackJsonArray() {
 
                         @Override
                         public void onSuccessArray(JSONArray job) throws JSONException {
@@ -74,11 +70,7 @@ public class LeaveTime extends Fragment {
                     });
                     //Get Absences
                     job.put("NumberOfMonths", "12");
-                    new Utility(getActivity()).jsonArrayRequest("staffService", "getESSAbsenceList", job, new VolleyCallback() {
-                        @Override
-                        public void onSuccess(JSONObject job) throws JSONException {
-                            Log.v("SUCCESS",job.toString());
-                        }
+                    new Utility(getActivity()).jsonArrayRequest("staffService", "getESSAbsenceList", job, new VolleyCallbackJsonArray() {
 
                         @Override
                         public void onSuccessArray(JSONArray job) throws JSONException {
