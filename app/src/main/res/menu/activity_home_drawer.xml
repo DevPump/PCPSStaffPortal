@@ -10,32 +10,32 @@
             android:id="@+id/nav_leaveTime"
             android:icon="@drawable/ic_menu_leavetime"
             android:title="Leave Time" />
-        <item
-            android:id="@+id/nav_tda"
-            android:icon="@drawable/ic_menu_tda"
-            android:title="Temporary Duty" />
 
-        <!--<item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_payroll_head"-->
+            <!--android:icon="@drawable/ic_menu_payroll"-->
+            <!--android:title="Payroll">-->
+        <!--</item>-->
+                <item
+                    android:id="@+id/nav_payroll_paychecks"
+                    android:icon="@drawable/ic_menu_payroll"
+                    android:title="Paychecks"></item>
+                <item
+                    android:id="@+id/nav_payroll_w2"
+                    android:icon="@drawable/ic_menu_payroll"
+                    android:title="W2"></item>
+                <item
+                    android:id="@+id/nav_payroll_withholding"
+                    android:icon="@drawable/ic_menu_payroll"
+                    android:title="Fed Tax Filing Status"></item>
+                <item
+                    android:id="@+id/nav_payroll_salary"
+                    android:icon="@drawable/ic_menu_payroll"
+                    android:title="Salary"></item>
+            <item
+                android:id="@+id/nav_tda"
+                android:icon="@drawable/ic_menu_tda"
+                android:title="Temporary Duty" />
     </group>
-
-    <!--<item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>-->
 
 </menu>

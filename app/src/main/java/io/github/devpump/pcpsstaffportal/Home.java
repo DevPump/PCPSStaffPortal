@@ -104,6 +104,18 @@ public class Home extends AppCompatActivity
             case R.id.nav_tda:
                 fragmentClass = Tda.class;
                 break;
+            case R.id.nav_payroll_paychecks:
+                fragmentClass = Paychecks.class;
+                break;
+            case R.id.nav_payroll_w2:
+                fragmentClass = W2.class;
+                break;
+            case R.id.nav_payroll_withholding:
+                fragmentClass = Withholding.class;
+                break;
+            case R.id.nav_payroll_salary:
+                fragmentClass = Salary.class;
+                        break;
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
