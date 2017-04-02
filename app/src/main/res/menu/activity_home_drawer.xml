@@ -10,6 +10,11 @@
             android:id="@+id/nav_leaveTime"
             android:icon="@drawable/ic_menu_leavetime"
             android:title="Leave Time" />
+        <item
+            android:id="@+id/nav_tda"
+            android:icon="@drawable/ic_menu_tda"
+            android:title="Temporary Duty" />
+
         <!--<item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"

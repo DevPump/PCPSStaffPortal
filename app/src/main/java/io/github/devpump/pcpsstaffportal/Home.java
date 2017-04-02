@@ -101,6 +101,9 @@ public class Home extends AppCompatActivity
             case R.id.nav_leaveTime:
                 fragmentClass = LeaveTime.class;
                 break;
+            case R.id.nav_tda:
+                fragmentClass = Tda.class;
+                break;
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
