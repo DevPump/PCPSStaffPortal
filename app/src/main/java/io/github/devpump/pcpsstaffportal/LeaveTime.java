@@ -78,7 +78,7 @@ public class LeaveTime extends Fragment {
                             List<String> listAbsences = new ArrayList<String>();
                             for(int i=0; i<job.length(); i++) {
                                 String dateFormatted = job.getJSONObject(i).getString("WORKDATE");
-                                dateFormatted =  dateFormatted.substring(4,6) + "/" + dateFormatted.substring(6,8) + "/" + dateFormatted.substring(0,4);
+                                dateFormatted =  dateFormatted.substring(4,6) + "-" + dateFormatted.substring(6,8) + "-" + dateFormatted.substring(0,4);
                                 listAbsences.add(dateFormatted + ": " + job.getJSONObject(i).getString("ATEXT") + " " + job.getJSONObject(i).getString("CATSHOURS"));
                             }
 
