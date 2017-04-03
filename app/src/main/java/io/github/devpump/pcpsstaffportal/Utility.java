@@ -1,6 +1,7 @@
 package io.github.devpump.pcpsstaffportal;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -15,6 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by devpump on 3/28/17.
  */
@@ -22,14 +26,14 @@ import org.json.JSONObject;
 public class Utility {
     public RequestQueue rq;
 
-    Utility(Context context){
+    Utility(Context context) {
         rq = Volley.newRequestQueue(context.getApplicationContext());
     }
 
     public void jsonRequest(String serviceName, String endPoint, JSONObject jsonPostData, final VolleyCallbackJsonObject callback) throws JSONException {
         //Create Object request with via POST method with JSON Object.
         String url = "https://staff.mypolkschools.net/Services/" + serviceName + ".svc/json/" + endPoint;
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url,jsonPostData,
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, jsonPostData,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -74,15 +78,30 @@ public class Utility {
                     }
                 });
         // Adding request to request queue
-       rq.add(jsonObjReq);
+        rq.add(jsonObjReq);
+    }
+
+    public String formatDate(String wcfDate) {
+        Date result = null;
+        wcfDate = wcfDate.replace("/Date(", "");
+        wcfDate = wcfDate.replace(")/", "");
+        wcfDate = wcfDate.substring(0, wcfDate.length() - 5);
+        if (!TextUtils.isEmpty(wcfDate)) {
+            result = new Date(Long.parseLong(wcfDate));
+            Log.v("Date", result.toString());
+            return (new SimpleDateFormat("MM-dd-yyyy").format(result));
+        }
+        return "";
     }
 }
+    interface VolleyCallbackJsonObject {
+        void onSuccess(JSONObject job) throws JSONException;
 
-interface VolleyCallbackJsonObject{
-    void onSuccess(JSONObject job) throws JSONException;
-    void onFail(String response);
-}
-interface VolleyCallbackJsonArray {
-    void onSuccessArray(JSONArray jobarr) throws JSONException;
-    void onFail(String response);
-}
+        void onFail(String response);
+    }
+
+    interface VolleyCallbackJsonArray {
+        void onSuccessArray(JSONArray jobarr) throws JSONException;
+
+        void onFail(String response);
+    }
