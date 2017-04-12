@@ -1,31 +1,21 @@
 package io.github.devpump.pcpsstaffportal;
 
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * Created by devpump on 4/1/17.
@@ -48,7 +38,7 @@ public class Tda extends Fragment {
         list_etda = (ExpandableListView) rootView.findViewById(R.id.list_etda);
         Bundle bndl = getArguments();
         JSONObject job = new JSONObject();
-        
+
         try {
             job.put("AuthToken", bndl.getString("AuthToken"));
             //Get Leave time
@@ -59,11 +49,12 @@ public class Tda extends Fragment {
                     Log.v("SUCCESSArray", job.toString());
                     listDataHeader = new ArrayList<String>();
                     listDataChild = new HashMap<String, List<String>>();
-                    List<String> tdaList = new ArrayList<String>();
+
+                    List<String> tdaList;
 
                     for (int i = 0; i < job.length(); i++) {
+                        tdaList = new ArrayList<String>();
                         JSONObject jobOb = job.getJSONObject(i);
-                        tdaList.clear();
                         listDataHeader.add(jobOb.getString("Event"));
                         tdaList.add("TDA ID: " + (jobOb.getString("TDA_ID").replaceFirst("^0+(?!$)", "")));
                         tdaList.add("Start Date: " + (new Utility(getActivity()).formatDate(jobOb.getString("DateStart"))));
@@ -72,6 +63,8 @@ public class Tda extends Fragment {
                         tdaList.add("Status: " + jobOb.getString("StatusDescription"));
 
                         listDataChild.put(listDataHeader.get(i), tdaList);
+
+
                     }
                     listAdapter = new io.github.devpump.pcpsstaffportal.ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
                     list_etda.setAdapter(listAdapter);
