@@ -56,20 +56,13 @@ public class Paychecks extends Fragment {
                     for(int i=0; i<job.length(); i++) {
                         JSONObject jobOb = job.getJSONObject(i);
                         paychecksArray.add(jobOb.getString("DocumentPeriod"));
-
-
-                        //Intent browserIntent = new Intent(Intent.ACTION_VIEW, );
-                        //startActivity(browserIntent);
-                        payCheckURI.add(Uri.parse("https://staff.mypolkschools.net/Services/StaffService.svc/json/GetDocument?authToken=" + jobIntent.getString("AuthToken").toString() + "&id="+ jobOb.getString("DocumentImageId") + "&filename=./" + jobOb.getString("DocumentFilename")).toString());
-
+                        payCheckURI.add("https://staff.mypolkschools.net/Services/StaffService.svc/json/GetDocument?authToken=" + jobIntent.getString("AuthToken").toString() + "&id="+ jobOb.getString("DocumentImageId") + "&filename=./" + jobOb.getString("DocumentFilename"));
                     }
 
-                    Collections.sort(paychecksArray);
-
-                    ArrayAdapter<String> paycheckitems= new ArrayAdapter<String>(
+                    ArrayAdapter<String> paycheckItems= new ArrayAdapter<String>(
                             getActivity(),
                             android.R.layout.simple_list_item_1, paychecksArray);
-                    list_paychecks.setAdapter(paycheckitems);
+                    list_paychecks.setAdapter(paycheckItems);
                 }
 
                 @Override
@@ -84,8 +77,9 @@ public class Paychecks extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(payCheckURI.get(position).toString()));
-                startActivity(browserIntent);
+                Intent webViewIntent = new Intent(getActivity(), MasterWebView.class);
+                webViewIntent.putExtra("url", payCheckURI.get(position).toString());
+                startActivity(webViewIntent);
 
             }
         });
